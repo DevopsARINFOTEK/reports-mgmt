@@ -1,47 +1,33 @@
-import { Link, useLocation } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 function Sidebar() {
-  const location = useLocation();
-
-  const menuItems = [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Reports", path: "/reports" },
-    { name: "Students", path: "/students" },
-    { name: "Courses", path: "/courses" },
-    { name: "Internships", path: "/internships" },
-  ];
-
   return (
-    <aside className="hidden md:flex w-64 bg-slate-900 text-white flex-col">
+    <div className="w-72 bg-[#0F3D91] min-h-screen text-white p-6">
+      <h1 className="text-3xl font-bold">AR INFOTEK</h1>
+      <p className="text-blue-200 mb-10">Report Management</p>
 
-      <div className="p-6 border-b border-slate-700">
-        <h1 className="text-2xl font-bold">
-          AR INFOTEK
-        </h1>
+      <div className="space-y-3">
+        <Link to="/" className="block bg-white text-blue-900 px-5 py-3 rounded-xl font-medium">
+          Dashboard
+        </Link>
 
-        <p className="text-sm text-slate-400">
-          Training Portal
-        </p>
+        <Link to="/reports" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+          Reports
+        </Link>
+
+        <Link to="/students" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+          Students
+        </Link>
+
+        <Link to="/courses" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+          Courses
+        </Link>
+
+        <Link to="/internships" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+          Internships
+        </Link>
       </div>
-
-      <nav className="p-4 flex-1">
-        {menuItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`block px-4 py-3 rounded-xl mb-2 transition ${
-              location.pathname === item.path
-                ? "bg-blue-600 text-white"
-                : "hover:bg-slate-800"
-            }`}
-          >
-            {item.name}
-          </Link>
-        ))}
-      </nav>
-
-    </aside>
+    </div>
   );
 }
 

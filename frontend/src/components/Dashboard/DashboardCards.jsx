@@ -1,57 +1,19 @@
-
-
 function DashboardCards() {
   const stats = [
-    {
-      title: "Total Students",
-      value: "1250",
-      color: "text-blue-600",
-      icon: "fa-user-graduate",
-    },
-    {
-      title: "Revenue",
-      value: "₹2.5 L",
-      color: "text-green-600",
-      icon: "fa-indian-rupee-sign",
-    },
-    {
-      title: "Placements",
-      value: "56",
-      color: "text-purple-600",
-      icon: "fa-briefcase",
-    },
-    {
-      title: "Certificates",
-      value: "980",
-      color: "text-orange-600",
-      icon: "fa-certificate",
-    },
+    { title: "Students", value: "1250" },
+    { title: "Revenue", value: "₹2.5L" },
+    { title: "Placements", value: "56" },
+    { title: "Certificates", value: "980" },
   ];
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((stat, index) => (
-        <div
-          key={index}
-          className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-lg transition"
-        >
-          <div className="flex justify-between items-center">
-
-            <div>
-              <p className="text-slate-500 text-sm">
-                {stat.title}
-              </p>
-
-              <h2 className={`text-4xl font-bold mt-3 ${stat.color}`}>
-                {stat.value}
-              </h2>
-            </div>
-
-            <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center">
-              <i className={`fa-solid ${stat.icon} ${stat.color} text-xl`} />
-            </div>
-
-          </div>
+        <div key={index} className="bg-white rounded-3xl p-6 shadow-md">
+          <p className="text-slate-500">{stat.title}</p>
+          <h1 className="text-4xl font-bold text-[#0F3D91] mt-3">
+            {stat.value}
+          </h1>
         </div>
       ))}
     </div>
