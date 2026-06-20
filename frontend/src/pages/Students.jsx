@@ -1,28 +1,29 @@
-import Sidebar from "../components/layout/Sidebar";
-import ReportHeader from "../components/layout/ReportHeader";
-import ReportFooter from "../components/layout/ReportFooter";
+import MainLayout from "../components/layout/MainLayout";
+import StudentsOverviewCards from "../components/Students/StudentsOverviewCards";
+import StudentsGrid from "../components/Students/StudentsGrid";
 
 function Students() {
   return (
-    <div className="min-h-screen bg-slate-100 flex">
+    <MainLayout>
+      {/* Hero */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#0F172A] via-[#1E3A8A] to-[#2563EB] rounded-3xl p-10 text-white mb-8 shadow-xl">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-400 opacity-20 blur-3xl rounded-full"></div>
 
-      <Sidebar />
+        <h1 className="text-5xl font-bold relative z-10">
+          Students Management
+        </h1>
 
-      <div className="flex-1 flex flex-col">
-
-        <ReportHeader />
-
-        <main className="flex-1 p-6">
-          <h1 className="text-3xl font-bold">
-            Students
-          </h1>
-        </main>
-
-        <ReportFooter />
-
+        <p className="mt-3 text-blue-100 text-lg relative z-10">
+          Manage Interns, Track Progress & Monitor Performance
+        </p>
       </div>
 
-    </div>
+      <StudentsOverviewCards />
+
+      <div className="mt-8">
+        <StudentsGrid />
+      </div>
+    </MainLayout>
   );
 }
 
