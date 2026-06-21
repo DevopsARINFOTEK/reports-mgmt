@@ -1,31 +1,36 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
+  const menuClass = ({ isActive }) =>
+    isActive
+      ? "block bg-white text-blue-900 px-5 py-3 rounded-xl font-medium"
+      : "block px-5 py-3 rounded-xl hover:bg-blue-700";
+
   return (
     <div className="w-72 bg-[#0F3D91] min-h-screen text-white p-6">
       <h1 className="text-3xl font-bold">AR INFOTEK</h1>
       <p className="text-blue-200 mb-10">Report Management</p>
 
       <div className="space-y-3">
-        <Link to="/" className="block bg-white text-blue-900 px-5 py-3 rounded-xl font-medium">
+        <NavLink to="/" className={menuClass}>
           Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/reports" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+        <NavLink to="/reports" className={menuClass}>
           Reports
-        </Link>
+        </NavLink>
 
-        <Link to="/students" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+        <NavLink to="/students" className={menuClass}>
           Students
-        </Link>
+        </NavLink>
 
-        <Link to="/courses" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+        <NavLink to="/courses" className={menuClass}>
           Courses
-        </Link>
+        </NavLink>
 
-        <Link to="/internships" className="block px-5 py-3 rounded-xl hover:bg-blue-700">
+        <NavLink to="/internships" className={menuClass}>
           Internships
-        </Link>
+        </NavLink>
       </div>
     </div>
   );
