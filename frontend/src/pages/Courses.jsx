@@ -1,47 +1,27 @@
 import MainLayout from "../components/layout/MainLayout";
+import CoursesOverviewCards from "../components/Courses/CoursesOverviewCards";
+import CoursesGrid from "../components/Courses/CoursesGrid";
 
 function Courses() {
   return (
     <MainLayout>
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#0F172A] via-[#1E3A8A] to-[#2563EB] rounded-3xl p-10 text-white mb-8 shadow-xl">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-400 opacity-20 blur-3xl rounded-full"></div>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Courses
-      </h1>
+        <h1 className="text-5xl font-bold relative z-10">
+          Courses Management
+        </h1>
 
-      <div className="grid md:grid-cols-3 gap-6">
-
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h3 className="text-xl font-semibold">
-            Full Stack Development
-          </h3>
-
-          <p className="text-slate-500 mt-2">
-            React, Node.js, PostgreSQL
-          </p>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h3 className="text-xl font-semibold">
-            Python Development
-          </h3>
-
-          <p className="text-slate-500 mt-2">
-            Python, Django, APIs
-          </p>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h3 className="text-xl font-semibold">
-            Data Science
-          </h3>
-
-          <p className="text-slate-500 mt-2">
-            Pandas, ML, Visualization
-          </p>
-        </div>
-
+        <p className="mt-3 text-blue-100 text-lg relative z-10">
+          Manage Courses, Track Enrollments & Monitor Learning Progress
+        </p>
       </div>
 
+      <CoursesOverviewCards />
+
+      <div className="mt-8">
+        <CoursesGrid />
+      </div>
     </MainLayout>
   );
 }
