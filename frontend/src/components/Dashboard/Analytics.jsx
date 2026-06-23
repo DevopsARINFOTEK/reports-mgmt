@@ -34,7 +34,7 @@ function Analytics() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Student Growth */}
       <div className="bg-white rounded-3xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6">Student Growth</h2>
+        <h2 className="text-2xl font-bold mb-6">Interns Growth</h2>
 
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={studentData}>
