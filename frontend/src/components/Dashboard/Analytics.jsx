@@ -1,67 +1,100 @@
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
- XAxis,
+  XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
   PieChart,
   Pie,
- Cell,
+  Cell,
   Legend,
 } from "recharts";
 
-const studentData = [
-  { month: "Jan", students: 120 },
-  { month: "Feb", students: 220 },
-  { month: "Mar", students: 340 },
-  { month: "Apr", students: 500 },
-  { month: "May", students: 720 },
-  { month: "Jun", students: 900 },
+const COLORS = [
+  "#0F3D91",
+  "#FF7A00",
+  "#16A34A",
+  "#9333EA",
 ];
-
-const courseData = [
-  { name: "Web Dev", value: 35 },
-  { name: "Python", value: 25 },
-  { name: "DevOps", value: 20 },
-  { name: "AI/ML", value: 20 },
-];
-
-const COLORS = ["#0F3D91", "#FF7A00", "#16A34A", "#9333EA"];
 
 function Analytics() {
+
+  const [barData, setBarData] = useState([]);
+  const [pieData, setPieData] = useState([]);
+
+  useEffect(() => {
+
+    fetch("http://localhost:5000/analytics")
+      .then((res) => res.json())
+      .then((data) => {
+        setBarData(data.barData);
+        setPieData(data.pieData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }, []);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Student Growth */}
+
       <div className="bg-white rounded-3xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6">Interns Growth</h2>
+
+        <h2 className="text-2xl font-bold mb-6">
+          System Statistics
+        </h2>
 
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={studentData}>
+          <BarChart data={barData}>
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="students" fill="#0F3D91" radius={[10, 10, 0, 0]} />
+            <Bar
+              dataKey="count"
+              fill="#0F3D91"
+              radius={[10, 10, 0, 0]}
+            />
           </BarChart>
         </ResponsiveContainer>
+
       </div>
 
-      {/* Course Distribution */}
       <div className="bg-white rounded-3xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6">Course Distribution</h2>
+
+        <h2 className="text-2xl font-bold mb-6">
+          Data Distribution
+        </h2>
 
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
-            <Pie data={courseData} dataKey="value" outerRadius={100} label>
-              {courseData.map((entry, index) => (
-                <Cell key={index} fill={COLORS[index]} />
+
+            <Pie
+              data={pieData}
+              dataKey="value"
+              outerRadius={100}
+              label
+            >
+
+              {pieData.map((entry, index) => (
+                <Cell
+                  key={index}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
+
             </Pie>
+
             <Tooltip />
             <Legend />
+
           </PieChart>
         </ResponsiveContainer>
+
       </div>
+
     </div>
   );
 }

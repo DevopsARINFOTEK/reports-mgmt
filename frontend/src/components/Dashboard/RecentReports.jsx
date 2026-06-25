@@ -1,37 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function RecentReports() {
-  const reportsData = [
-    { name: "Student Report", date: "18 Jun", status: "Completed" },
-    { name: "Revenue Report", date: "17 Jun", status: "Pending" },
-    { name: "Placement Report", date: "16 Jun", status: "Completed" },
-    { name: "Certificate Report", date: "15 Jun", status: "Pending" },
-    { name: "Internship Report", date: "14 Jun", status: "Completed" },
-    { name: "Monthly Report", date: "13 Jun", status: "Pending" },
-    { name: "Weekly Report", date: "12 Jun", status: "Completed" },
-    { name: "Annual Report", date: "11 Jun", status: "Pending" },
-  ];
 
+  const [reportsData, setReportsData] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+
+    fetch("http://localhost:5000/reports")
+      .then((res) => res.json())
+      .then((data) => {
+        setReportsData(data);
+      })
+      .catch((error) => {
+        console.error("Reports Error:", error);
+      });
+
+  }, []);
+
   const reportsPerPage = 5;
 
   const filteredReports = reportsData.filter((report) => {
-    const matchesSearch = report.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
+
+    const matchesSearch =
+      report.report_name
+        ?.toLowerCase()
+        .includes(search.toLowerCase());
 
     const matchesFilter =
-      filter === "All" || report.status === filter;
+      filter === "All" ||
+      report.status === filter;
 
     return matchesSearch && matchesFilter;
+
   });
 
-  const totalPages = Math.ceil(filteredReports.length / reportsPerPage);
+  const totalPages = Math.ceil(
+    filteredReports.length / reportsPerPage
+  );
 
-  const startIndex = (currentPage - 1) * reportsPerPage;
+  const startIndex =
+    (currentPage - 1) * reportsPerPage;
+
   const currentReports = filteredReports.slice(
     startIndex,
     startIndex + reportsPerPage
@@ -39,10 +51,13 @@ function RecentReports() {
 
   return (
     <div className="bg-white rounded-3xl shadow-md p-6">
-      <h2 className="text-2xl font-bold mb-6">Recent Reports</h2>
 
-      {/* Search + Filter */}
+      <h2 className="text-2xl font-bold mb-6">
+        Recent Reports
+      </h2>
+
       <div className="flex flex-col md:flex-row gap-4 mb-6">
+
         <input
           type="text"
           placeholder="Search reports..."
@@ -66,10 +81,11 @@ function RecentReports() {
           <option>Completed</option>
           <option>Pending</option>
         </select>
+
       </div>
 
-      {/* Table */}
       <table className="w-full">
+
         <thead>
           <tr className="border-b text-left">
             <th className="pb-3">Report</th>
@@ -79,11 +95,28 @@ function RecentReports() {
         </thead>
 
         <tbody>
-          {currentReports.map((report, index) => (
-            <tr key={index} className="border-b h-16">
-              <td>{report.name}</td>
-              <td>{report.date}</td>
+
+          {currentReports.map((report) => (
+
+            <tr
+              key={report.report_id}
+              className="border-b h-16"
+            >
+
               <td>
+                {report.report_name}
+              </td>
+
+              <td>
+                {report.generated_date
+                  ? new Date(
+                      report.generated_date
+                    ).toLocaleDateString()
+                  : "-"}
+              </td>
+
+              <td>
+
                 <span
                   className={`px-3 py-1 rounded-full text-sm ${
                     report.status === "Completed"
@@ -93,18 +126,25 @@ function RecentReports() {
                 >
                   {report.status}
                 </span>
+
               </td>
+
             </tr>
+
           ))}
+
         </tbody>
+
       </table>
 
-      {/* Pagination */}
       <div className="flex justify-between items-center mt-6">
+
         <button
           className="px-4 py-2 bg-slate-200 rounded-lg disabled:opacity-50"
           disabled={currentPage === 1}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() =>
+            setCurrentPage(currentPage - 1)
+          }
         >
           Prev
         </button>
@@ -115,14 +155,21 @@ function RecentReports() {
 
         <button
           className="px-4 py-2 bg-slate-200 rounded-lg disabled:opacity-50"
-          disabled={currentPage === totalPages || totalPages === 0}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={
+            currentPage === totalPages ||
+            totalPages === 0
+          }
+          onClick={() =>
+            setCurrentPage(currentPage + 1)
+          }
         >
           Next
         </button>
+
       </div>
+
     </div>
   );
 }
 
-export default RecentReports; 
+export default RecentReports;
