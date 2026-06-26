@@ -5,6 +5,7 @@ import Reports from "./pages/Reports";
 import Students from "./pages/Students";
 import Courses from "./pages/Courses";
 import Internships from "./pages/Internships";
+import GenerateReport from "./pages/GenerateReport";
 import Login from "./pages/Login";
 
 // Protected Route Component
@@ -19,10 +20,10 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Login Page */}
+        {/* Login */}
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Pages */}
+        {/* Dashboard */}
         <Route
           path="/"
           element={
@@ -32,6 +33,7 @@ function App() {
           }
         />
 
+        {/* Reports */}
         <Route
           path="/reports"
           element={
@@ -41,6 +43,17 @@ function App() {
           }
         />
 
+        {/* Generate Report */}
+        <Route
+          path="/generate-report"
+          element={
+            <ProtectedRoute>
+              <GenerateReport />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Students */}
         <Route
           path="/students"
           element={
@@ -50,6 +63,7 @@ function App() {
           }
         />
 
+        {/* Courses */}
         <Route
           path="/courses"
           element={
@@ -59,6 +73,7 @@ function App() {
           }
         />
 
+        {/* Internships */}
         <Route
           path="/internships"
           element={
